@@ -25,3 +25,5 @@ In JavaScript and also other programming languages, there are different types of
 ## Null
 ## Symbol
 ## Bigint
+
+.
