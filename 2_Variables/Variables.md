@@ -3,7 +3,7 @@
 
 - [Variables](#variables)
   - [Naming Rules](#naming-rules)
-  - [Hoisting]()
+  - [Hoisting](#hoisting)
   - [Variable Declaration]()
     - [var]()
     - [const]()
@@ -139,4 +139,11 @@ Classes defined using a [class declaration](/14_Classes/Classes.md) are hoisted,
 ## Function and class expression hoisting
 [Function expressions](/10_Functions/Functions.md#functional-declaration) and [class expressions](/14_Classes/Classes.md#class-expressions) are not hoisted.
 The expressions evaluate to a function or class (respectively). They are typically then assigned to a variable or passed to other functions. In this case, the variable declaration is hoisted and the expression is its initialization. Therefore the expressions are not evaluated until the relevant line is executed.
+# Variable Declaration
+To use a variable, you've first got to create it — more accurately, we call this declaring the variable. To do this, we type the keyword `let` followed by the name you want to call your variable:
+```js
+let myName;
+let myAge;
+```
+Here we're creating two variables called `myName` and `myAge`. Try typing these lines into your web browser's console. After that, try creating a variable (or two) with your own name choices.
 
