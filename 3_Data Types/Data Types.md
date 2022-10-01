@@ -7,6 +7,7 @@
     - [Undefined](#undefined)
     - [Symbol](#symbol)
     - [#Bihint](#bigint)
+  - [Non-Primitive Type](#non-primitive-type)
   - [Object](#object)
 
 # **Data Types**
