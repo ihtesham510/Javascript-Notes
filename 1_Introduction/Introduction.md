@@ -2,14 +2,6 @@
 
 ## Overview.
 
-```mermaid
-flowchart RL;
- id1[Introduction To Javascript]---id2[What is Javascript?];
- id1[Introduction To Javascript]---id3[History of Javascript];
- id1[Introduction To Javascript]---id4[Javascipt Versions];
- id1[Introduction To Javascript]---id5[How to run Javascipt?];
-```
-
 - [Introduction to Javascript](#introduction-to-javascript)
   - [what is Javascript?](#what-is-javascript)
   - [History of Javascript.](#history-of-javascript)
@@ -75,20 +67,17 @@ And that about wraps it up. Feel free to leave your feedback in the comments sec
 # Javascript Versions.
 JavaScript was invented by Brendan Eich, and in 1997 and became an ECMA standard. ECMAScript is the official language name. ECMAScript versions include ES1, ES2, ES3, ES5, and ES6
 
-|       Versions      |       Official Name       |                         Description                         |
-|---------------------|---------------------------|-------------------------------------------------------------|
-|         [ES1](#ecmascript-1-4)        |           ECMAScript 1 (1997)            |                                                         |
-|         [ES2](#ecmascript-1-4)        |           ECMAScript 2 (1998)            |                                                         |
-|         [ES3](#ecmascript-1-4)        |           ECMAScript 3 (1999)            |                                                         |
-|         [ES4](#ecmascript-1-4)        |           ECMAScript 4            |                                                         |
-|         [ES5]()        |           ECMAScript 5 (2009)            |                                                         |
-|         []()        |           ECMAScript 2015            |                                                         |
-|         []()        |           ECMAScript 2016            |                                                         |
-|         []()        |           ECMAScript 2017            |                                                         |
-|         []()        |           ECMAScript 2018            |                                                         |
-|         []()        |           []()            |                                                         |
-|         []()        |           []()            |                                                         |
-|         []()        |           []()            |                                                         |
+| Version | Official Name       | Description                                                                                   |
+|---------|---------------------|-----------------------------------------------------------------------------------------------|
+| ES1     | ECMAScript 1 (1997) | First edition                                                                                 |
+| ES2     | ECMAScript 2 (1998) | Editorial changes                                                                             |
+| ES3     | ECMAScript 3 (1999) | Added regular expressions & try/catch                                                         |
+| ES4     | ECMAScript 4        | Not released                                                                                  |
+| ES5     | ECMAScript 5 (2009) | Added “strict mode”, JSON support, String.trim(), Array.isArray(), & Array iteration methods. |
+| ES6     | ECMAScript 2015     | Added let and const, default parameter values, Array.find(), & Array.findIndex()              |
+| ES6     | ECMAScript 2016     | Added exponential operator & Array.prototype.includes                                         |
+| ES6     | ECMAScript 2017     | Added string padding, Object.entries, Object.values, async functions, & shared memory         |
+| ES6     | ECMAScript 2018     | Added rest / spread properties, asynchronous iteration, Promise.finally(), & RegExp           |
 
 
 ## ECMAScript 1-4
@@ -719,7 +708,7 @@ This is a multiline comment
 
 Programming languages are similar to human languages. English or many other language uses words, phrases, sentences, compound sentences and other more to convey a meaningful message. The English meaning of syntax is _the arrangement of words and phrases to create well-formed sentences in a language_. The technical definition of syntax is the structure of statements in a computer language. Programming languages have syntax. JavaScript is a programming language and like other programming languages it has its own syntax. If we do not write a syntax that JavaScript understands, it will raise different types of errors. We will explore different kinds of JavaScript errors later. For now, let us see syntax errors.
 
-![Error](images/raising_syntax_error.png)
+![Error](/images/raising_syntax_error.png)
 
 I made a deliberate mistake. As a result, the console raises syntax errors. Actually, the syntax is very informative. It informs what type of mistake was made. By reading the error feedback guideline, we can correct the syntax and fix the problem. The process of identifying and removing errors from a program is called debugging. Let us fix the errors:
 
