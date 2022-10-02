@@ -26,7 +26,7 @@ var x = 5;
 var y = 6;
 var z = x + y;
 ```
-***The Assignment Operator***
+### ***The Assignment Operator***
 
 In JavaScript, the equal sign (=) is an "assignment" operator, not an "equal to" operator.
 
@@ -362,7 +362,14 @@ console.log(x, z);     // 3 5
 console.log(typeof y); // "undefined", as y is local to function a
 ```
 ## const
-
+Constants are [block-scoped](#block-scope), much like variables declared using the [`let`](#let) keyword. The value of a constant can't be changed through reassignment (i.e. by using the [assignment operator](#the-assignment-operator)), and it can't be redeclared (i.e. through a [variable declaration](#variable-declaration)). However, if a constant is an [object](/3_Data%20Types/Data%20Types.md#object) or array its properties or items can be updated or removed.
+### Syntax
+```js
+const name1 = value1 [, name2 = value2 [, ... [, nameN = valueN]]]
+```
+#### nameN
+The constant's name, which can be any legal identifier.
+The [destructuring assignment](/9_Expressions%20and%20Operators/Readme.md#destructuring-assignment) syntax can also be used to declare variables.
 
 
 
