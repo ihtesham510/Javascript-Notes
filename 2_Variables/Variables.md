@@ -362,6 +362,11 @@ console.log(x, z);     // 3 5
 console.log(typeof y); // "undefined", as y is local to function a
 ```
 ## const
+
+
+
+
+
 ## let
 # Variables Scopes
 ## Block Scope
