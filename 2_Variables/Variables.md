@@ -225,4 +225,16 @@ var x = 1;
 console.log(x);                // 1
 console.log('still going...'); // still going...
 ```
+In the global context, a variable declared using var is added as a non-configurable property of the global object. This means its property descriptor cannot be changed and it cannot be deleted using [`delete`](/9_Expressions%20and%20Operators/Readme.md#delete-operator). The corresponding name is also added to a list on the internal `[[VarNames]]` slot on the [global environment record](https://tc39.es/ecma262/#sec-global-environment-records) (which forms part of the global lexical environment). The list of names in `[[VarNames]]` enables the runtime to distinguish between global variables and straightforward properties on the global object.
+
+The property created on the global object for global variables, is set to be non-configurable because the identifier is to be treated as a variable, rather than a straightforward property of the global object. JavaScript has automatic memory management, and it would make no sense to be able to use the delete operator on a global variable.
+```js
+'use strict';
+var x = 1;
+Object.hasOwn(globalThis, 'x'); // true
+delete globalThis.x; // TypeError in strict mode. Fails silently otherwise.
+delete x;  // SyntaxError in strict mode. Fails silently otherwise.
+```
+Note that in both NodeJS [CommonJS](https://www.commonjs.org/) modules and native ECMAScript modules, top-level variable declarations are scoped to the module, and are not, therefore added as properties to the global object.
+
 
