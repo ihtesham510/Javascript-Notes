@@ -135,7 +135,7 @@ Note that it is the order in which code is executed that matters, not the order 
 For information and examples see [`let` > temporal dead zone](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#temporal_dead_zone_tdz).
 
 ## `Class` Hoisting
-Classes defined using a [class declaration](/14_Classes/Classes.md) are hoisted, which means that JavaScript has a reference to the class. However the class is not initialized by default, so any code that uses it before the line in which it is initialized is executed will throw a `ReferenceError`.  
+Classes defined using a [class declaration](/14_Classes/Classes.md#class-declaration) are hoisted, which means that JavaScript has a reference to the class. However the class is not initialized by default, so any code that uses it before the line in which it is initialized is executed will throw a `ReferenceError`.  
 ## Function and class expression hoisting
 [Function expressions](/10_Functions/Functions.md#functional-declaration) and [class expressions](/14_Classes/Classes.md#class-expressions) are not hoisted.
 The expressions evaluate to a function or class (respectively). They are typically then assigned to a variable or passed to other functions. In this case, the variable declaration is hoisted and the expression is its initialization. Therefore the expressions are not evaluated until the relevant line is executed.
@@ -146,4 +146,83 @@ let myName;
 let myAge;
 ```
 Here we're creating two variables called `myName` and `myAge`. Try typing these lines into your web browser's console. After that, try creating a variable (or two) with your own name choices.
+```
+Note: In JavaScript, all code instructions should end with a semicolon (;) — your code may work correctly for single lines, but probably won't when you are writing multiple lines of code together. Try to get into the habit of including it.
+```
+You can test whether these values now exist in the execution environment by typing just the variable's name, e.g.
+```js
+myName;
+myAge;
+```
+They currently have no value; they are empty containers. When you enter the variable names, you should get a value of `undefined` returned. If they don't exist, you'll get an error message — try typing in
+```js
+scoobyDoo;
+```
+```
+Note: Don't confuse a variable that exists but has no defined value with a variable that doesn't exist at all — they are very different things. In the box analogy you saw above, not existing would mean there's no box (variable) for a 
+value to go in. No value defined would mean that there is a box, but it has no value inside it.
+```
+### Initializing a Variable
+Once you've declared a variable, you can initialize it with a value. You do this by typing the variable name, followed by an equals sign `=`, followed by the value you want to give it. For example:
+```js
+myName = 'Chris';
+myAge = 37;
+```
+Try going back to the console now and typing in these lines. You should see the value you've assigned to the variable returned in the console to confirm it, in each case. Again, you can return your variable values by typing their name into the console — try these again:
+```js
+myName;
+myAge;
+```
+You can declare and initialize a variable at the same time, like this:
+```js
+let myDog = 'Rover';
+```
+This is probably what you'll do most of the time, as it is quicker than doing the two actions on two separate lines.
+
+## var
+The `var` statement declares a function-scoped or globally-scoped variable, optionally initializing it to a value.
+
+### Syntax
+```js
+var varname1 [= value1] [, varname2 [= value2] ... [, varnameN [= valueN]]]
+```
+#### `varname`
+
+Variable name. It can be any legal identifier.
+#### `valueN`
+Initial value of the variable. It can be any legal expression. Default value is `undefined`.
+Alternatively, the [Destructuring Assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) syntax can also be used to declare variables.
+```js
+var { bar } = foo; // where foo = { bar:10, baz:12 };
+/* This creates a variable with the name 'bar', which has a value of 10 */
+```
+#### Description
+`var` declarations, wherever they occur, are processed before any code is executed. This is called [hoisting](#hoisting) and is discussed further below.
+
+The scope of a variable declared with `var` is its current execution context and closures thereof, which is either the enclosing function and functions declared within it, or, for variables declared outside any function, global. Duplicate variable declarations using `var` will not trigger an error, even in strict mode, and the variable will not lose its value, unless another assignment is performed.
+```js
+'use strict';
+function foo() {
+  var x = 1;
+  function bar() {
+    var y = 2;
+    console.log(x); // 1 (function `bar` closes over `x`)
+    console.log(y); // 2 (`y` is in scope)
+  }
+  bar();
+  console.log(x); // 1 (`x` is in scope)
+  console.log(y); // ReferenceError in strict mode, `y` is scoped to `bar`
+}
+
+foo();
+```
+Variables declared using `var` are created before any code is executed in a process known as hoisting. Their initial value is `undefined`.
+```js
+'use strict';
+console.log(x);                // undefined (note: not ReferenceError)
+console.log('still going...'); // still going...
+var x = 1;
+console.log(x);                // 1
+console.log('still going...'); // still going...
+```
 
