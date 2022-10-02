@@ -5,14 +5,14 @@
   - [Naming Rules](#naming-rules)
   - [Hoisting](#hoisting)
   - [Variable Declaration]()
-    - [var]()
-    - [const]()
-    - [let]()
-  - [Variables Scopes]()
-    - [Block Scopes]()
-    - [Local Scopes]()
-    - [Functional Scopes]()
-    - [Global Scopes]()
+    - [var](#var)
+    - [const](#const)
+    - [let](#let)
+  - [Variables Scopes](#variables-scopes)
+    - [Block Scopes](#block-scope)
+    - [Local Scopes](#local-scope)
+    - [Functional Scopes](#functional-scope)
+    - [Global Scopes](#global-scope)
 
 
       
@@ -236,5 +236,135 @@ delete globalThis.x; // TypeError in strict mode. Fails silently otherwise.
 delete x;  // SyntaxError in strict mode. Fails silently otherwise.
 ```
 Note that in both NodeJS [CommonJS](https://www.commonjs.org/) modules and native ECMAScript modules, top-level variable declarations are scoped to the module, and are not, therefore added as properties to the global object.
+### Unqualified identifier assignments
+The global object sits at the top of the scope chain. When attempting to resolve a name to a value, the scope chain is searched. This means that properties on the global object are conveniently visible from every scope, without having to qualify the names with `globalThis`. or `window`. or `global`..
 
+Because the global object has a `String` property `(Object.hasOwn(globalThis, 'String'))`, you can use the following code:
+```js
+function foo() {
+  String('s') // Note the function `String` is implicitly visible
+}
+```
+o the global object will ultimately be searched for unqualified identifiers. You don't have to type `globalThis.String`, you can just type the unqualified `String`. The corollary, in non-strict mode, is that assignment to unqualified identifiers will, if there is no variable of the same name declared in the scope chain, assume you want to create a property with that name on the global object.
+```js
+foo = 'f' // In non-strict mode, assumes you want to create a property named `foo` on the global object
+Object.hasOwn(globalThis, 'foo') // true
+```
+In [strict mode](/11_Strict%20Mode/Readme.md#strict-mode), assignment to an unqualified identifier in strict mode will result in a `ReferenceError`, to avoid the accidental creation of properties on the global object.
 
+Note that the implication of the above, is that, contrary to popular misinformation, JavaScript does not have implicit or undeclared variables, it merely has a syntax that looks like it does.
+
+### var Hoisting
+Because `var`declarations are processed before any code is executed, declaring a variable anywhere in the code is equivalent to declaring it at the top. This also means that a variable can appear to be used before it's declared. This behavior is called "hoisting", as it appears that the variable declaration is moved to the top of the function or global code.
+```js
+bla = 2;
+var bla;
+```
+This is implicitly understood as:
+
+```js
+
+var bla;
+bla = 2;
+
+```
+For that reason, it is recommended to always declare variables at the top of their scope (the top of global code and the top of function code) so it's clear which variables are function scoped (local) and which are resolved on the scope chain.
+
+It's important to point out that only a variable's declaration is hoisted, not its initialization. The initialization happens only when the assignment statement is reached. Until then the variable remains `undefined` (but declared):
+```js
+function do_something() {
+  console.log(bar); // undefined
+  var bar = 111;
+  console.log(bar); // 111
+}
+```
+This is implicitly understood as:
+```js
+function do_something() {
+  var bar;
+  console.log(bar); // undefined
+  bar = 111;
+  console.log(bar); // 111
+}
+```
+### ***Examples***
+1. Declaring and initializing two variables:
+```js
+var a = 0, b = 0;
+```
+2. Assigning two variables with single string value
+```js
+var a = 'A';
+var b = a;
+```
+This is equivalent to:
+```js
+var a, b = a = 'A';
+```
+Be mindful of the order:
+```js
+var x = y, y = 'A';
+console.log(x + y); // undefinedA
+```
+Here, `x` and `y` are declared before any code is executed, but the assignments occur later. At the time `x = y` is evaluated, `y` exists so no `ReferenceError` is thrown and its value is `undefined`. So, `x` is assigned the undefined value. Then, `y` is assigned the value `'A'`. Consequently, after the first line, `x === undefined && y === 'A'`, hence the result.
+3. Initialization of several variables
+```js
+var x = 0;
+function f() {
+  var x = y = 1; // Declares x locally; declares y globally.
+}
+f();
+
+console.log(x, y); // 0 1
+
+// In non-strict mode:
+// x is the global one as expected;
+// y is leaked outside of the function, though!
+```
+The same example as above but with a strict mode:
+
+```js
+'use strict';
+
+var x = 0;
+function f() {
+  var x = y = 1; // Throws a ReferenceError in strict mode.
+}
+f();
+
+console.log(x, y);
+```
+4. Implicit globals and outer function scope
+Variables that appear to be implicit globals may be references to variables in an outer function scope:
+```js
+var x = 0; // Declares x within file scope, then assigns it a value of 0.
+
+console.log(typeof z); // "undefined", since z doesn't exist yet
+
+function a() {
+  var y = 2; // Declares y within scope of function a, then assigns it a value of 2.
+
+  console.log(x, y); // 0 2
+
+  function b() {
+    x = 3; // Assigns 3 to existing file scoped x.
+    y = 4; // Assigns 4 to existing outer y.
+    z = 5; // Creates a new global variable z, and assigns it a value of 5.
+           // (Throws a ReferenceError in strict mode.)
+  }
+
+  b(); // Creates z as a global variable.
+  console.log(x, y, z); // 3 4 5
+}
+
+a(); // Also calls b.
+console.log(x, z);     // 3 5
+console.log(typeof y); // "undefined", as y is local to function a
+```
+## const
+## let
+# Variables Scopes
+## Block Scope
+## Local Scope
+## Functional Scope
+## Global Scope
