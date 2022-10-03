@@ -370,13 +370,134 @@ const name1 = value1 [, name2 = value2 [, ... [, nameN = valueN]]]
 #### nameN
 The constant's name, which can be any legal identifier.
 The [destructuring assignment](/9_Expressions%20and%20Operators/Readme.md#destructuring-assignment) syntax can also be used to declare variables.
+```js
+const { bar } = foo; // where foo = { bar:10, baz:12 };
+/* This creates a constant with the name 'bar', which has a value of 10 */
+```
+### Description
+This declaration creates a constant whose scope can be either global or local to the block in which it is declared. Global constants do not become properties of the [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) object, unlike [`var`](#var) variables.
 
+An initializer for a constant is required. You must specify its value in the same declaration. (This makes sense, given that it can't be changed later.)
 
+The `const` declaration creates a read-only reference to a value. It does not mean the value it holds is immutable—just that the variable identifier cannot be reassigned. For instance, in the case where the content is an object, this means the object's contents (e.g., its properties) can be altered.
 
+All the considerations about the [temporal dead zone](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#temporal_dead_zone_tdz) apply to both `let` and `const`.
 
+A constant cannot share its name with a function or a variable in the same scope.
+
+Unlike `var`, `const` begins [declarations, not statements](/10_Functions/Functions.md#diffrence-betweem-declarations-and-statements). That means you cannot use a lone `const` declaration as the body of a block (which makes sense, since there's no way to access the variable).
+```js
+if (true) const a = 1; // SyntaxError: Unexpected token 'const'
+```
+### ***Examples***
+1. Basic const usage
+Constants can be declared with uppercase or lowercase, but a common convention is to use all-uppercase letters.
+```js
+// define MY_FAV as a constant and give it the value 7
+const MY_FAV = 7;
+
+// this will throw an error - Uncaught TypeError: Assignment to constant variable.
+MY_FAV = 20;
+
+// MY_FAV is 7
+console.log('my favorite number is: ' + MY_FAV);
+
+// trying to redeclare a constant throws an error
+// Uncaught SyntaxError: Identifier 'MY_FAV' has already been declared
+const MY_FAV = 20;
+
+// the name MY_FAV is reserved for constant above, so this will fail too
+var MY_FAV = 20;
+
+// this throws an error too
+let MY_FAV = 20;
+```
+2. Block scoping
+It's important to note the nature of block scoping.
+```js
+if (MY_FAV === 7) {
+  // this is fine and creates a block scoped MY_FAV variable
+  // (works equally well with let to declare a block scoped non const variable)
+  let MY_FAV = 20;
+
+  // MY_FAV is now 20
+  console.log('my favorite number is ' + MY_FAV);
+
+  // this gets hoisted into the global context and throws an error
+  var MY_FAV = 20;
+}
+
+// MY_FAV is still 7
+console.log('my favorite number is ' + MY_FAV);
+```
+3. const needs to be initialized
+```js
+// throws an error
+// Uncaught SyntaxError: Missing initializer in const declaration
+
+const FOO;
+```
+4. const in objects and arrays
+`const` also works on objects and arrays. Attempting to overwrite the object throws an error "Assignment to constant variable".
+```js
+const MY_OBJECT = { key: 'value' };
+MY_OBJECT = { OTHER_KEY: 'value' };
+```
+However, object keys are not protected, so the following statement is executed without problem.
+```js
+MY_OBJECT.key = 'otherValue';
+```
+You would need to use [Object.freeze()](/3_Data%20Types/Data%20Types.md#object.freeze()) to make an object immutable.
+
+The same applies to arrays. Assigning a new array to the variable throws an error "Assignment to constant variable".
+```js
+const MY_ARRAY = [];
+MY_ARRAY = ['B'];
+```
+Still, it's possible to push items into the array and thus mutate it.
+```js
+MY_ARRAY.push('A'); // ["A"]
+```
 ## let
 # Variables Scopes
+Before ES6 (2015), JavaScript had only Global Scope and Function Scope. ES6 introduced two important new JavaScript keywords: `let` and `const`. These two keywords provide Block Scope in JavaScript.
+
+
 ## Block Scope
+This scope restricts the variable that is declared inside a specific block, from access by the outside of the block. The let & const keyword facilitates the variables to be block scoped. In order to access the variables of that specific block, we need to create an object for it. Variables declared with the var keyword, do not have block scope.
+In this article, we will see what is Block scoping in Javascript, access to the block-scoped variables, how it is distinct from other kinds of variable’s scope, through the examples. Prior to [ES2015](/1_Introduction/Introduction.md#release-of-es6--ecmascript-2015), JavaScript supported only function-level scoping unlike other languages like C++/Java which has block-level scoping. With [ES2015](/1_Introduction/Introduction.md#release-of-es6--ecmascript-2015), in addition to function-level scoping, JavaScript also supports block-level scoping with the help of the [let keyword](#let) & [const keyword](#const).
+
+But before we get into details of [ES2015](/1_Introduction/Introduction.md#release-of-es6--ecmascript-2015) stuff, let’s discuss what we exactly mean by phrases “function-level scope” and “block-level scope”.
+
+Block Level Scope: This scope restricts the variable that is declared inside a specific block, from access by the outside of the block. The let & const keyword facilitates the variables to be block scoped. In order to access the variables of that specific block, we need to create an object for it. Variables declared with the var keyword, do not have block scope.
+
+For instance, consider the below example:
+```js
+{
+   let p = 110;
+   const q = 111;
+}
+console.log(p); // Uncaught ReferenceError: p is not defined
+console.log(q); // Uncaught ReferenceError: q is not defined
+```
+Here, we have used the let & const keyword to illustrate the block-level scope, in order to access the variable from outside of the block.
+
+***Function level Scope:*** The variables in this scope level are restricted to access only the inside the function where it is declared ie., it can be accessed anywhere inside of that function, not accessible outside functions. Every time a new scope will be generated while creating a function & in that scope, any variable can be accessed by any function within that scope. The function or variables defined as global scope will be accessible by all the other variables or functions. Now, let’s look at the function scope in JavaScript.
+```js
+function printIfGFG( text){
+   if(text=="GeeksforGeeks"|| text=="GFG") {
+   var message = "Verified Geek";
+   console.log(message); // Output: Verified Geek
+}
+console.log(message); // Output: Verified Geek
+}
+printIfGFG("GFG");
+```
+In the code snippet above, we have declared and defined a variable message inside the [if-condition](/8_Control%20Flow/Readme.md#if). Then, displayed the output the value using [`console.log()`](/10_Functions/Functions.md#consolelog-function) function.
+
+The tricky part is the fact that we can also able to print the value of variable ‘message’ outside the if-condition. This is because in JavaScript functions declared using the keyword ‘var’ have to function scope, by default. JavaScript runtime looks for the closest enclosing function relative to the variable declaration and sets it as the scope for that variable.
+
+But, how JavaScript runtime does this? Well, it is worth mentioning here that JavaScript runtime internally changes our code and moves all [variable declarations](#variable-hoisting) to the starting of the function. This is known as variable hoisting. So, our code in the current example is effectively changed to the below code snippet.
 ## Local Scope
 ## Functional Scope
 ## Global Scope
