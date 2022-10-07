@@ -1,9 +1,24 @@
 # Overview
 - [Data Types](#data-types)
   - [Primitive Types](#primitive-types)
-    - [String](#string)
+    - [Strings](#strings)
+      - [String Concatenation](#string-concatenation)
+        - [Concatenating Using Addition Operator](#concatenating-using-addition-operator)
+        - [Long Literal Strings](#long-literal-strings)
+        - [Escape Sequences in Strings](#escape-sequences-in-strings)
+        - [Template Literals (Template Strings)](#template-literals-template-strings)
+      - [String Methods](#string-methods)
+      - [Checking Data Types and Casting](#checking-data-types-and-casting)
+        - [Checking Data Types](#checking-data-types)
+        - [Changing Data Type (Casting)](#changing-data-type-casting)
+          - [String to Int](#string-to-int)
+          - [String to Float](#string-to-float)
+          - [Float to Int](#float-to-int)
     - [Boolean](#boolean)
-    - [Number](#number)
+    - [Numbers](#numbers)
+		  - [Declaring Number Data Types](#declaring-number-data-types)
+		  - [Math Object](#math-object)
+			  - [Random Number Generator](#random-number-generator)
     - [Undefined](#undefined)
     - [Symbol](#symbol)
     - [#Bihint](#bigint)
@@ -25,106 +40,6 @@ There are two Types:
 
 In JavaScript, a primitive (primitive value, primitive data type) is data that is not an object and has no methods or properties.
 
-## Numbers
-Numbers are integers and decimal values which can do all the arithmetic operations.
-Let's see some examples of Numbers.
-
-### Declaring Number Data Types
-
-```js
-let age = 35
-const gravity = 9.81  // we use const for non-changing values, gravitational constant in  m/s2
-let mass = 72         // mass in Kilogram
-const PI = 3.14       // pi a geometrical constant
-
-// More Examples
-const boilingPoint = 100 // temperature in oC, boiling point of water which is a constant
-const bodyTemp = 37      // oC average human body temperature, which is a constant
-
-console.log(age, gravity, mass, PI, boilingPoint, bodyTemp)
-```
-
-### Math Object
-
-In JavaScript the Math Object provides a lots of methods to work with numbers.
-
-```js
-const PI = Math.PI
-
-console.log(PI)                            // 3.141592653589793
-
-// Rounding to the closest number
-// if above .5 up if less 0.5 down rounding
-
-console.log(Math.round(PI))                // 3 to round values to the nearest number
-
-console.log(Math.round(9.81))              // 10
-
-console.log(Math.floor(PI))                // 3 rounding down
-
-console.log(Math.ceil(PI))                 // 4 rounding up
-
-console.log(Math.min(-5, 3, 20, 4, 5, 10)) // -5, returns the minimum value
-
-console.log(Math.max(-5, 3, 20, 4, 5, 10)) // 20, returns the maximum value
-
-const randNum = Math.random() // creates random number between 0 to 0.999999
-console.log(randNum)
-
-// Let us  create random number between 0 to 10
-
-const num = Math.floor(Math.random () * 11) // creates random number between 0 and 10
-console.log(num)
-
-//Absolute value
-console.log(Math.abs(-10))      // 10
-
-//Square root
-console.log(Math.sqrt(100))     // 10
-
-console.log(Math.sqrt(2))       // 1.4142135623730951
-
-// Power
-console.log(Math.pow(3, 2))     // 9
-
-console.log(Math.E)             // 2.718
-
-// Logarithm
-// Returns the natural logarithm with base E of x, Math.log(x)
-console.log(Math.log(2))        // 0.6931471805599453
-console.log(Math.log(10))       // 2.302585092994046
-
-// Returns the natural logarithm of 2 and 10 respectively
-console.log(Math.LN2)           // 0.6931471805599453
-console.log(Math.LN10)          // 2.302585092994046
-
-// Trigonometry
-Math.sin(0)
-Math.sin(60)
-
-Math.cos(0)
-Math.cos(60)
-```
-
-#### Random Number Generator
-
-The JavaScript Math Object has a random() method number generator which generates number from 0 to 0.999999999...
-
-```js
-let randomNum = Math.random() // generates 0 to 0.999...
-```
-
-Now, let us see how we can use random() method to generate a random number between 0 and 10:
-
-```js
-let randomNum = Math.random()         // generates 0 to 0.999
-let numBtnZeroAndTen = randomNum * 11
-
-console.log(numBtnZeroAndTen)         // this gives: min 0 and max 10.99
-
-let randomNumRoundToFloor = Math.floor(numBtnZeroAndTen)
-console.log(randomNumRoundToFloor)    // this gives between 0 and 10
-```
 
 ## Strings
 
@@ -759,8 +674,107 @@ let numInt = parseInt(num)
 
 console.log(numInt) // 9
 ```
+## Numbers
+Numbers are integers and decimal values which can do all the arithmetic operations.
+Let's see some examples of Numbers.
 
-🌕  You are awesome. You have just completed day 2 challenges and you are two steps ahead on your way to greatness. Now do some exercises for your brain and for your muscle.  
+### Declaring Number Data Types
+
+```js
+let age = 35
+const gravity = 9.81  // we use const for non-changing values, gravitational constant in  m/s2
+let mass = 72         // mass in Kilogram
+const PI = 3.14       // pi a geometrical constant
+
+// More Examples
+const boilingPoint = 100 // temperature in oC, boiling point of water which is a constant
+const bodyTemp = 37      // oC average human body temperature, which is a constant
+
+console.log(age, gravity, mass, PI, boilingPoint, bodyTemp)
+```
+
+### Math Object
+
+In JavaScript the Math Object provides a lots of methods to work with numbers.
+
+```js
+const PI = Math.PI
+
+console.log(PI)                            // 3.141592653589793
+
+// Rounding to the closest number
+// if above .5 up if less 0.5 down rounding
+
+console.log(Math.round(PI))                // 3 to round values to the nearest number
+
+console.log(Math.round(9.81))              // 10
+
+console.log(Math.floor(PI))                // 3 rounding down
+
+console.log(Math.ceil(PI))                 // 4 rounding up
+
+console.log(Math.min(-5, 3, 20, 4, 5, 10)) // -5, returns the minimum value
+
+console.log(Math.max(-5, 3, 20, 4, 5, 10)) // 20, returns the maximum value
+
+const randNum = Math.random() // creates random number between 0 to 0.999999
+console.log(randNum)
+
+// Let us  create random number between 0 to 10
+
+const num = Math.floor(Math.random () * 11) // creates random number between 0 and 10
+console.log(num)
+
+//Absolute value
+console.log(Math.abs(-10))      // 10
+
+//Square root
+console.log(Math.sqrt(100))     // 10
+
+console.log(Math.sqrt(2))       // 1.4142135623730951
+
+// Power
+console.log(Math.pow(3, 2))     // 9
+
+console.log(Math.E)             // 2.718
+
+// Logarithm
+// Returns the natural logarithm with base E of x, Math.log(x)
+console.log(Math.log(2))        // 0.6931471805599453
+console.log(Math.log(10))       // 2.302585092994046
+
+// Returns the natural logarithm of 2 and 10 respectively
+console.log(Math.LN2)           // 0.6931471805599453
+console.log(Math.LN10)          // 2.302585092994046
+
+// Trigonometry
+Math.sin(0)
+Math.sin(60)
+
+Math.cos(0)
+Math.cos(60)
+```
+
+#### Random Number Generator
+
+The JavaScript Math Object has a random() method number generator which generates number from 0 to 0.999999999...
+
+```js
+let randomNum = Math.random() // generates 0 to 0.999...
+```
+
+Now, let us see how we can use random() method to generate a random number between 0 and 10:
+
+```js
+let randomNum = Math.random()         // generates 0 to 0.999
+let numBtnZeroAndTen = randomNum * 11
+
+console.log(numBtnZeroAndTen)         // this gives: min 0 and max 10.99
+
+let randomNumRoundToFloor = Math.floor(numBtnZeroAndTen)
+console.log(randomNumRoundToFloor)    // this gives between 0 and 10
+```
+  
 ## Boolean
 ## Undefined
 ## Null
