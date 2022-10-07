@@ -499,5 +499,112 @@ The tricky part is the fact that we can also able to print the value of variable
 
 But, how JavaScript runtime does this? Well, it is worth mentioning here that JavaScript runtime internally changes our code and moves all [variable declarations](#variable-hoisting) to the starting of the function. This is known as variable hoisting. So, our code in the current example is effectively changed to the below code snippet.
 ## Local Scope
+Variables declared within a JavaScript function, become LOCAL to the function.
+```js
+// code here can NOT use carName
+
+function myFunction() {
+  let carName = "Volvo";
+  // code here CAN use carName
+}
+
+// code here can NOT use carName
+```
+```
+NOTE: Local variables have Function Scope:
+
+They can only be accessed from within the function.
+```
+
+
 ## Functional Scope
+JavaScript has function scope: Each function creates a new scope.
+Variables defined inside a function are not accessible (visible) from outside the function.
+Variables declared with `var`, `let` and `const` are quite similar when declared inside a function.
+They all have **Function Scope**:
+```js
+function myFunction() {
+  var carName = "Volvo";   // Function Scope
+}
+```
+```js
+function myFunction() {
+  let carName = "Volvo";   // Function Scope
+}
+```
+```js
+function myFunction() {
+  const carName = "Volvo";   // Function Scope
+}
+```
+In this article, we will cover all the basic concepts of JS functions, callbacks, scopes, closures in-depth which would help you to –
+- understand different types of functions declaration.
+- make better use of functions.
+- understand how different scopes and scope chain works in JS.
+- learn about closures and how to use them.
+We will understand all these concepts through the examples & also understand their implementations. Let’s begin the discussion with Javascript Function.
+
+Functions: [Function](/10_Functions/Functions.md#functions) allows us to declare & pack a bunch of code in a block so that we can use (and reuse) a block of code in our programs. Sometimes, they take some values as `parameters` to do the operation and return some value as a result of the operation.
+
+Example:
+```js
+function add(a, b) {
+
+	// a and b are the parameters of this
+	// function code to do the operation
+	return a + b; // return statement
+}
+
+// Invoking the function and 2, 3
+// are arguments here
+add(2, 3);
+```
+Output:
+```
+5
+```
+First-Class Citizen: If any programming language has the ability to treat functions as values, to pass them as arguments and to return a function from another function then it is said that programming language has First Class Functions and the functions are called [First-Class Citizens](https://www.geeksforgeeks.org/what-is-first-class-citizen-in-javascript/) in that programming language. Functions will be considered as First-Class Citizen in JavaScript if the functions:
+
+- store functions in a variable.
+- pass a function as an argument to another function.
+- return a function from another function.
+Function Expressions: When a function is stored inside a variable, it is called a function expression. This can be named or anonymous. If a function doesn’t have any name and is stored in a variable, then it would be known as an anonymous function expression. Otherwise, it would be known as a named [function expression](/10_Functions/Functions.md#functional-expresions). Please refer to the JavaScript Function expression article for more details
+Example:
+```js
+// Anonymous function expression
+const add = function (a, b){
+	return a + b;
+}
+
+// Named function expression
+const subtractResult = function subtract(a, b){
+	return a - b;
+}
+
+console.log(add(3, 2)); // 5
+console.log(subtractResult(3, 2)); // 1
+```
+The output will be 5 & 1 respectively.
+
+**Callbacks:** Storing a function in a variable makes it really easy to pass a function to another function as an argument. A function that takes other functions as arguments or returns a function is known as a **higher-order function**. A function that is passed as an argument into another function is known as a [callback function](/13_Asynchronous%20JavaScript/Readme.md#callback). In simple words, If we want to execute a function right after the return of some other function, then callbacks can be used. Please refer to the JavaScript | Callbacks article for more details.
+
+Example:
+```js
+function showLength(name, callback) {
+callback(name);
+}
+
+// function expression `nameLength`
+const nameLength = function (name) {
+console.log(`Given Name ${name} which
+is ${name.length} chars long`);
+};
+
+// Passing `nameLength` as a callback function
+showLength("GeeksforGeek", nameLength);
+```
+Output:
+```
+Given Name GeeksforGeek which is 12 characters long
+```
 ## Global Scope
