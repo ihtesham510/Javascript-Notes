@@ -56,8 +56,8 @@ ESNext is a dynamic name that refers to whatever the current version of ECMAScri
 
 ## What does the future hold?
 Since the release of ES6, [TC39](https://github.com/tc39) has quite streamlined their process. TC39 operates through a Github organization now and there are [several proposals](https://github.com/tc39/proposals) for new features or syntax to be added to the next versions of ECMAScript. Any one can go ahead and [submit a proposal](https://github.com/tc39/proposals) thus resulting in increasing the participation from the community. Every proposal goes through [four stages of maturity](https://tc39.es/process-document/) before it makes it into the specification.
-
-And that about wraps it up. Feel free to leave your feedback in the comments section below. Also here are the links to original language specifications [ES6](https://262.ecma-international.org/6.0/), [ES7](https://262.ecma-international.org/7.0/) and [ES8](https://262.ecma-international.org/8.0/).
+h
+Here are the links to original language specifications [ES6](https://262.ecma-international.org/6.0/), [ES7](https://262.ecma-international.org/7.0/) and [ES8](https://262.ecma-international.org/8.0/).
 
 
 **For more Free History Javascipt follow the Links**
